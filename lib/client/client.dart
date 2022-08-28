@@ -55,7 +55,7 @@ class _ClientWidgetState extends State<ClientWidget> {
                     height: 300,
                     width: 300,
                     child: QrImage(
-                      data: qrBloc.state.crypt(),
+                      data: qrBloc.state.encode(),
                     ),
                   ),
                 ),

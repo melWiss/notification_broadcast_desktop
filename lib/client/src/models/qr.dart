@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bcrypt/bcrypt.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:random_password_generator/random_password_generator.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -47,7 +48,14 @@ class Qr {
 
   String toJson() => json.encode(toMap());
 
-  String crypt() => BCrypt.hashpw("$device#$ip#$pass", BCrypt.gensalt());
+  String encode() {
+    var jwt = JWT("$device#$ip#$pass", issuer: "oussamamaatallah01@gmail.com");
+    var token = jwt.sign(
+      SecretKey("bananas in pyjamas"),
+      expiresIn: Duration(days: 365),
+    );
+    return token;
+  }
 
   factory Qr.fromJson(String source) => Qr.fromMap(json.decode(source));
 
