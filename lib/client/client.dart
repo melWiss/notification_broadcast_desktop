@@ -31,7 +31,6 @@ class _ClientWidgetState extends State<ClientWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size);
     return Scaffold(
       body: StreamBuilder<QrState>(
         stream: qrBloc.stream,
@@ -63,12 +62,31 @@ class _ClientWidgetState extends State<ClientWidget> {
                 Text(qrBloc.state.device ?? "DEVICE NAME"),
                 Text(qrBloc.state.ip ?? "IP ADDRESS"),
                 Text(qrBloc.state.pass ?? "PASSWORD"),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: qrBloc.generate,
-                    child: const Text("Generate"),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.black,
+                          onPressed: qrBloc.generate,
+                          label: const Text("Generate"),
+                          icon: const Icon(Icons.qr_code),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton.extended(
+                          backgroundColor: Colors.black,
+                          onPressed: qrBloc.generate,
+                          label: const Text("Start"),
+                          icon: const Icon(Icons.play_arrow),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
